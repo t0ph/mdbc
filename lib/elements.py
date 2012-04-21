@@ -7,6 +7,5 @@ elements = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "A
 def encrypt(plaintext):
     out = ""
     for i in range(len(plaintext)):
-        print i
         out += elements[plaintext[i]-1]
     return out
