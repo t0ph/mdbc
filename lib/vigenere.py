@@ -37,3 +37,39 @@ def sanitizeKey(key):
                         sanitizedKey += key[y]
         sanitizedKey = toNum(sanitizedKey)
 	return sanitizedKey
+
+def simpleKnownPlaintextAttack(knownText, ciphertext): 
+    for i in range(len(ciphertext)):
+    	print '.'*i,
+    	print decrypt(knownText, ciphertext[i:i+len(knownText)]),
+    	print '.'*(len(ciphertext)-(i+len(knownText)))
+
+def knownPlaintextAttack(knownText, ciphertext): 
+    key = knownText.upper()
+    out = ''
+    outz = ''
+    for i in range(len(knownText)):
+    	outz = ''
+    	if i:
+    		key = 'a'+key
+    	out = decrypt(key,ciphertext)
+    	for x in range(len(out)):
+    		if x % (len(key)) < i:
+    			outz = outz+'.'
+    		else:
+    			outz = outz + out[x]
+    	print outz
+    	print makeKey(key,ciphertext)
+    	print ''
+
+def makeKey(key, ciphertext):
+	i=0
+	icon = True
+	out = ''
+	while icon:
+		if len(out) == len(ciphertext):
+			icon = False
+		else:
+			out = out + key[i]
+			i = (i+1)%len(key)
+	return out
